@@ -2,6 +2,6 @@
 <h2>Films</h2>
 <ul>
 {% for movie in actor.movies.all %}
-    <li>{{ movie.title }}</li>
+    <li><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</li>
 {% endfor %}
 </ul>
