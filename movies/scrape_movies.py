@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 from constants import BASE_URL
 
+
 def scrape_csfd_movies(movies_count: int) -> list:
 
     headers = {
