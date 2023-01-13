@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Actor, Movie
+from django.urls import reverse
 
 
 class MovieTestCase(TestCase):
@@ -49,6 +50,9 @@ class MovieTestCase(TestCase):
         self.assertContains(response, "Karel Roden")
         self.assertTemplateUsed(response, "movies/movie_detail.html")
 
+        response = self.client.get(f'{reverse("actor_detail", args=[self.actor_1.pk])}')
+        self.assertEqual(response.status_code, 200)
+
     def test_actor_detail_view(self) -> None:
         response = self.client.get("/actor_detail/1/")
         no_response = self.client.get("/actor_detail/12345/")
@@ -58,3 +62,6 @@ class MovieTestCase(TestCase):
         self.assertContains(response, "Muzi v nadeji")
         self.assertContains(response, "Zeny v nadeji")
         self.assertTemplateUsed(response, "movies/actor_detail.html")
+
+        response = self.client.get(f'{reverse("movie_detail", args=[self.movie_1.pk])}')
+        self.assertEqual(response.status_code, 200)
