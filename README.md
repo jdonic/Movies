@@ -18,6 +18,9 @@ Before running project do not forget to migrate the database:
 
 `docker-compose exec web python manage.py migrate`
 
+You can either download the database contents from the repository or execute the script for scraping by:
+`docker-compose exec web python manage.py populate_db`
+
 After running the container and migrating database, you can access the application in [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 To run the tests and linters execute:
