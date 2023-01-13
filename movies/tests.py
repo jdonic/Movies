@@ -39,3 +39,12 @@ class MovieTestCase(TestCase):
         self.assertIn(self.actor_1, self.movie_1.actors.all())
         self.assertIn(self.actor_2, self.movie_1.actors.all())
         self.assertIn(self.actor_1, self.movie_2.actors.all())
+
+    def test_movie_detail_view(self) -> None:
+        response = self.client.get("/movie_detail/1/")
+        no_response = self.client.get("/movie_detail/12345/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, "Muzi v nadeji")
+        self.assertContains(response, "Karel Roden")
+        self.assertTemplateUsed(response, "movies/movie_detail.html")
