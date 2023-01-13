@@ -1,0 +1,7 @@
+<h1>{{ actor.name }}</h1>
+<h2>Films</h2>
+<ul>
+{% for movie in actor.movies.all %}
+    <li>{{ movie.title }}</li>
+{% endfor %}
+</ul>
