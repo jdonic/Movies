@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+from constants import BASE_URL
 
 def scrape_csfd_movies(movies_count: int) -> list:
 
@@ -10,11 +11,10 @@ def scrape_csfd_movies(movies_count: int) -> list:
     }
 
     movies: list = []
-    base_url = "https://www.csfd.cz"
 
     # iterate over the 4 pages
     for i in range(4):
-        url = base_url + "/zebricky/filmy/nejlepsi/?from={}".format(i * 100)
+        url = BASE_URL + "/zebricky/filmy/nejlepsi/?from={}".format(i * 100)
         page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, "html.parser")
 
@@ -24,7 +24,7 @@ def scrape_csfd_movies(movies_count: int) -> list:
         for container in movie_containers:
             if len(movies) < movies_count:
                 name = container.find("a", class_="film-title-name").text.strip()
-                link = base_url + container.find("a", class_="film-title-name")["href"]
+                link = BASE_URL + container.find("a", class_="film-title-name")["href"]
                 movie_page = requests.get(link, headers=headers)
                 movie_soup = BeautifulSoup(movie_page.text, "html.parser")
                 creators = movie_soup.find_all("div", class_="creators")

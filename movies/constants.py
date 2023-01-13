@@ -1,1 +1,2 @@
-MOVIE_COUNT = 2
+MOVIES_COUNT = 300
+BASE_URL = "https://www.csfd.cz"
