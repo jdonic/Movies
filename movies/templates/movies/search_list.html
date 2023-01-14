@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">
+</head>
+<body>
+    <form class="d-flex" action="{% url 'search_list' %}" method="get">
+        <input type="search" name="q" placeholder="Search" aria-label="Search" >
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="movies-actors-container">
+        <div class="movies-container">
+            <h1>Movies:</h1>
+            <ul>
+                {% for item in object_list %}
+                    {% if item.title %}
+                        <li class="movie-item"><a href="{% url 'movie_detail' item.pk %}">{{ item.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="actors-container">
+            <h1>Actors:</h1>
+            <ul>
+                {% for item in object_list %}
+                    {% if item.name %}
+                        <li class="actor-item"><a href="{% url 'actor_detail' item.pk %}">{{ item.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

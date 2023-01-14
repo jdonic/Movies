@@ -1,7 +1,17 @@
-<h1>{{ movie.title }}</h1>
-<h2>Actors</h2>
-<ul>
-{% for actor in movie.actors.all %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Movie Detail</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+    <h2>Actors</h2>
+    <ul>
+    {% for actor in movie.actors.all %}
     <li><a href="{% url 'actor_detail' actor.pk %}">{{ actor.name }}</li>
-{% endfor %}
-</ul>
+    {% endfor %}
+    </ul>
+</body>
+</html>

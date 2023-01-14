@@ -1,0 +1,41 @@
+.d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="search"] {
+    width: 50%;
+    padding: 1em;
+    font-size: 1.5em;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    padding: 1em;
+    font-size: 1.5em;
+    border-radius: 5px;
+}
+
+.movies-actors-container {
+    display: flex;
+    justify-content: center;
+}
+.movies-container, .actors-container {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+}
+.movie-item a, .actor-item a {
+    text-decoration: none;
+    color: #333;
+}
+.movie-item, .actor-item {
+    list-style: none;
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+
