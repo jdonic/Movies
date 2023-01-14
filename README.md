@@ -14,11 +14,14 @@ Build the Docker images and run the containers:
 
 `docker-compose up -d --build`
 
-Before running project do not forget to migrate the database:
+The database is present in the repository with all it's contents. You do not have to apply migrations.
+
+However if you would like to, there is a script for scraping data from the web and populating the db.
+For executing delete first the db.sqlite3 file, then apply migrations:
 
 `docker-compose exec web python manage.py migrate`
 
-You can either download the database contents from the repository or execute the script for scraping and filling the db by:
+Then you can execute the script for populating database, you can set the number of movies you want to scrape in constants.py.
 `docker-compose exec web python manage.py populate_db`
 
 After that, you can access the application in [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
