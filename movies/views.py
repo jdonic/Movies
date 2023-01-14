@@ -1,9 +1,9 @@
 from django.views.generic import DetailView, ListView
 
+from unidecode import unidecode
 from itertools import chain
 
 from .models import Movie, Actor
-from django.db.models import Q
 
 
 class MovieDetailView(DetailView):
@@ -23,8 +23,18 @@ class SearchListView(ListView):
     def get_queryset(self) -> list:
         query = self.request.GET.get("q")
         if query:
-            movies = Movie.objects.filter(Q(title__icontains=query))
-            actors = Actor.objects.filter(Q(name__icontains=query))
+            movies = list(
+                filter(
+                    lambda x: unidecode(query.lower()) in unidecode(x.title).lower(),
+                    Movie.objects.all(),
+                )
+            )
+            actors = list(
+                filter(
+                    lambda x: unidecode(query.lower()) in unidecode(x.name).lower(),
+                    Actor.objects.all(),
+                )
+            )
             # use the chain function to combine the querysets
             return list(chain(movies, actors))
         else:

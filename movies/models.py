@@ -1,11 +1,16 @@
 from django.db import models
 
+from unidecode import unidecode
+
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self) -> str:
         return self.name
+
+    def get_unidecoded_name(self) -> str:
+        return unidecode(self.name)
 
 
 class Movie(models.Model):
@@ -14,3 +19,6 @@ class Movie(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_unidecoded_title(self) -> str:
+        return unidecode(self.title)
