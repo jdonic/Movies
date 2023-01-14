@@ -62,6 +62,27 @@ class MovieTestCase(TestCase):
         self.assertContains(response, "Muzi v nadeji")
         self.assertContains(response, "Zeny v nadeji")
         self.assertTemplateUsed(response, "movies/actor_detail.html")
-
         response = self.client.get(f'{reverse("movie_detail", args=[self.movie_1.pk])}')
         self.assertEqual(response.status_code, 200)
+
+
+class SearchPageTest(TestCase):
+    def test_search_page_view(self) -> None:
+        response = self.client.get("")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "movies/search_list.html")
+
+    def test_search_list_view(self) -> None:
+        movie1 = Movie.objects.create(title="Movie 1")
+        movie2 = Movie.objects.create(title="Movie 2")
+        actor1 = Actor.objects.create(name="Actor 1")
+        actor2 = Actor.objects.create(name="Actor 2")
+
+        response = self.client.get("", {"q": "Movie"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "movies/search_list.html")
+        self.assertContains(response, movie1.title)
+        self.assertContains(response, movie2.title)
+        self.assertNotContains(response, actor1.name)
+        self.assertNotContains(response, actor2.name)
