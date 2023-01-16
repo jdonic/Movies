@@ -4,6 +4,7 @@ from unidecode import unidecode
 
 
 class Actor(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=100)
 
     def __str__(self) -> str:
@@ -14,6 +15,7 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
     title = models.CharField(max_length=100)
     actors = models.ManyToManyField(Actor, related_name="movies")
 

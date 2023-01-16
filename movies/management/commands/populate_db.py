@@ -12,7 +12,11 @@ class Command(BaseCommand):
     def handle(self, *args: Any, **options: Any) -> None:
         films_actors = scrape_csfd_movies(MOVIES_COUNT)
         for film_actors in films_actors:
-            film = Movie.objects.create(title=film_actors["name"])
-            for actor_name in film_actors["actors"]:
-                actor, _ = Actor.objects.get_or_create(name=actor_name)
-                film.actors.add(actor)
+            film, _ = Movie.objects.get_or_create(
+                id=film_actors["movie_id"], title=film_actors["title"]
+            )
+            for actor in film_actors["actors"]:
+                actor_obj, _ = Actor.objects.get_or_create(
+                    id=actor["actor_id"], name=actor["name"]
+                )
+                film.actors.add(actor_obj)

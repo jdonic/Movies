@@ -6,10 +6,11 @@ from django.urls import reverse
 class MovieTestCase(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
-        cls.actor_1 = Actor.objects.create(name="Tom Hanks")
-        cls.actor_2 = Actor.objects.create(name="Karel Roden")
-        cls.movie_1 = Movie.objects.create(title="Muzi v nadeji")
+        cls.actor_1 = Actor.objects.create(id=1, name="Tom Hanks")
+        cls.actor_2 = Actor.objects.create(id=2, name="Karel Roden")
+        cls.movie_1 = Movie.objects.create(id=1, title="Muzi v nadeji")
         cls.movie_2 = Movie.objects.create(
+            id=2,
             title="Zeny v nadeji",
         )
         cls.movie_1.actors.set([cls.actor_1, cls.actor_2])
@@ -73,10 +74,10 @@ class SearchPageTest(TestCase):
         self.assertTemplateUsed(response, "movies/search_list.html")
 
     def test_search_list_view(self) -> None:
-        movie1 = Movie.objects.create(title="Movie 1")
-        movie2 = Movie.objects.create(title="Movie 2")
-        actor1 = Actor.objects.create(name="Actor 1")
-        actor2 = Actor.objects.create(name="Actor 2")
+        movie1 = Movie.objects.create(id=1, title="Movie 1")
+        movie2 = Movie.objects.create(id=2, title="Movie 2")
+        actor1 = Actor.objects.create(id=1, name="Actor 1")
+        actor2 = Actor.objects.create(id=2, name="Actor 2")
 
         response = self.client.get("", {"q": "Movie"})
 
